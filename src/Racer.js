@@ -15,7 +15,6 @@ import DeleteDialog from "./DeleteDialog";
 export default function Racer(props) {
   const [openDelete, setOpenDelete] = React.useState(false);
   const {
-    handleClickOpenEmail,
     name,
     description,
     isSingle,
@@ -24,6 +23,7 @@ export default function Racer(props) {
     line,
     email,
     other,
+    secret,
     id
   } = props;
   const handleClickOpenDelete = () => {
@@ -34,7 +34,7 @@ export default function Racer(props) {
   };
   return (
     <Grid item xs={12} md={6} xl={4} style={{border:'1px solid orange'}}>
-      <ListItem button onClick={handleClickOpenEmail} divider >
+      <ListItem>
         <ListItemIcon>
           {isSingle ? (
             <Person style={{ color: "orange" }} />
@@ -49,7 +49,7 @@ export default function Racer(props) {
           <Typography variant="body1">{description}</Typography>
         </Box>
         {id?
-        <Delete style={{position:"absolute",right:0, top:"2px"}} onClick={handleClickOpenDelete}/>:null}
+        <Delete style={{position:"absolute",right:0, top:"2px"}} onClick={handleClickOpenDelete} />:null}
       </ListItem>
       <Grid container>
             {line ? <Grid item xs={12} sm={6} lg={3}><ListItem><ListItemIcon><img src={LineIcon} alt="line" height="30px" /></ListItemIcon><Typography>{line}</Typography></ListItem></Grid> : null}
@@ -58,7 +58,7 @@ export default function Racer(props) {
             {email ? <Grid item xs={12} lg={6}><ListItem><ListItemIcon><Email style={{color:"orange"}} /></ListItemIcon><Typography>{email}</Typography></ListItem></Grid> : null}
             {other ? <Grid item xs={12}><ListItem><ListItemIcon><Info style={{color:"orange"}}/></ListItemIcon><Typography>{other}</Typography></ListItem></Grid> : null}
             </Grid>
-            <DeleteDialog openDelete={openDelete} handleCloseDelete={handleCloseDelete} email={email} id={id}/>
+            <DeleteDialog openDelete={openDelete} handleCloseDelete={handleCloseDelete} secret={secret} id={id}/>
     </Grid>
   );
 }

@@ -17,8 +17,8 @@ import {
 import Firebase from './Firebase'
 
 export default function DeleteDialog(props) {
-  const { openDelete, handleCloseDelete, email, id } = props;
-  const [confirmEmail, setConfirmEmail] = React.useState("");
+  const { openDelete, handleCloseDelete, secret, id } = props;
+  const [confirmSecret, setConfirmSecret] = React.useState("");
   const [reason, setReason] = React.useState("");
   const [reason2, setReason2] = React.useState("")
 
@@ -28,7 +28,7 @@ const handleDeleteConfirmation =() =>{
         reason:reason==="other"?reason2:reason,
         timeDeleted:new Date()
     })
-    setConfirmEmail("")
+    
     setReason("")
     setReason2("")
     handleCloseDelete()
@@ -69,12 +69,12 @@ const handleDeleteConfirmation =() =>{
     :null}
         <TextField
         required
-          value={confirmEmail}
-          onChange={e => setConfirmEmail(e.target.value)}
+          value={confirmSecret}
+          onChange={e => setConfirmSecret(e.target.value)}
           margin="dense"
-          id="email"
-          label="Enter email from listing to confirm deletion"
-          type="email"
+          id="confirm secret"
+          label="Confirm favorite post-run food to delete!"
+          type="text"
           fullWidth
           variant='outlined'
         />
@@ -85,7 +85,7 @@ const handleDeleteConfirmation =() =>{
         </Button>
         <Button
           onClick={handleDeleteConfirmation}
-          disabled={!(email == confirmEmail)}
+          disabled={!(secret == confirmSecret)}
         >
           DELETE LISTING
         </Button>

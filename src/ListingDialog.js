@@ -27,6 +27,7 @@ export default function ListingDialog(props) {
   const [line, setLine] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [other, setOther] = React.useState("");
+  const [secret,setSecret] = React.useState("")
 
   const handleSubmit = () => {
     Firebase.firestore()
@@ -40,6 +41,7 @@ export default function ListingDialog(props) {
         line: line,
         email: email,
         other: other,
+        secret: secret,
         timestamp: new Date()
       });
       setName("")
@@ -50,6 +52,7 @@ export default function ListingDialog(props) {
       setLine("")
       setEmail("")
       setOther("")
+      setSecret("")
       handleClose()
   };
 
@@ -100,6 +103,17 @@ export default function ListingDialog(props) {
           required
           label={isSingle?"Email":"Email (just one, others can be listed at the bottom)"}
           type="email"
+          fullWidth
+        />
+        <TextField
+          value={secret}
+          onChange={e => setSecret(e.target.value)}
+          margin="dense"
+          id="secret"
+          required
+          label="Favorite post-race food"
+          helperText="(Remember this answer to delete listing)"
+          type="text"
           fullWidth
         />
         <TextField

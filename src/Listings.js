@@ -37,101 +37,6 @@ const racers = [
     line: "mark67",
     email: null,
     other: null
-  },
-  {
-    name: "Bob",
-    description:
-      "My first race and not the most in shape, but would love to meet new people!",
-    isSingle: true,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
-  },
-  {
-    name: "Mark and Alice",
-    description: "Beer-drinking couple looking for 2 more for a Superteam",
-    isSingle: false,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
-  },
-  {
-    name: "Trish",
-    description:
-      "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
-  },
-  {
-    name: "Mark and Alice",
-    description: "Beer-drinking couple looking for 2 more for a Superteam",
-    isSingle: false,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
-  },
-  {
-    name: "Trish",
-    description:
-      "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
-  },
-  {
-    name: "Mark and Alice",
-    description: "Beer-drinking couple looking for 2 more for a Superteam",
-    isSingle: false,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
-  },
-  {
-    name: "Trish",
-    description:
-      "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
-  },
-  {
-    name: "Mark and Alice",
-    description: "Beer-drinking couple looking for 2 more for a Superteam",
-    isSingle: false,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
-  },
-  {
-    name: "Trish",
-    description:
-      "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
-  },
-  {
-    name: "Mark and Alice",
-    description: "Beer-drinking couple looking for 2 more for a Superteam",
-    isSingle: false,
-    facebook: null,
-    line: "mark67",
-    email: null,
-    other: null
   }
 ];
 
@@ -190,6 +95,16 @@ export default function Listings() {
         }}
       >
         <Grid container>
+        <Grid item xs={12} md={6} xl={4}>
+            <Button
+              onClick={handleClickOpen}
+              fullWidth
+              style={{ color: "orange", height: "150px" }}
+            >
+              <Add fontSize="large" />
+              Create Listing
+            </Button>
+          </Grid>
         {data.filter(racer=>!racer.isDeleted).map(racer => (
           <React.Fragment>
             <Racer
@@ -201,6 +116,7 @@ export default function Listings() {
               line={racer.line}
               email={racer.email}
               other={racer.other}
+              secret={racer.secret}
               id={racer.id}
             />
             
@@ -218,16 +134,6 @@ export default function Listings() {
               other={racer.other}
             />
           ))}
-          <Grid item xs={12} md={6} xl={4}>
-            <Button
-              onClick={handleClickOpen}
-              fullWidth
-              style={{ color: "orange", height: "150px" }}
-            >
-              <Add fontSize="large" />
-              Create Listing
-            </Button>
-          </Grid>
         </Grid>
         <ListingDialog
           //selectedValue={selectedValue}
