@@ -101,7 +101,8 @@ export default function ListingDialog(props) {
           margin="dense"
           id="email"
           required
-          label={isSingle?"Email":"Email (just one, others can be listed at the bottom)"}
+          label="Email"
+          helperText={isSingle?null:"Only one, others can be listed at the bottom"}
           type="email"
           fullWidth
         />
@@ -121,8 +122,8 @@ export default function ListingDialog(props) {
           onChange={e => setDescription(e.target.value)}
           margin="dense"
           id="description"
-          helperText="(optional)"
-          label="Short Description of who you are or who you're looking for"
+          helperText="Who you are or who you're looking for"
+          label="Description"
           type="text"
           multiline
           fullWidth
@@ -153,7 +154,7 @@ export default function ListingDialog(props) {
               margin="dense"
               id="contact"
               helperText="(optional)"
-              label="Facebook Name"
+              label="Name"
               type="text"
               fullWidth
             />
@@ -168,7 +169,7 @@ export default function ListingDialog(props) {
               margin="dense"
               id="contact"
               helperText="(optional)"
-              label="Phone Number"
+              label="Phone #"
               type="tel"
               fullWidth
             />
@@ -180,7 +181,7 @@ export default function ListingDialog(props) {
           margin="dense"
           id="contact"
           helperText="(optional)"
-          label="Is there another way you'd like to be contacted?"
+          label="Other contact?"
           type="text"
           multiline
           fullWidth

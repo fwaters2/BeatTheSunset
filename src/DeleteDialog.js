@@ -44,9 +44,9 @@ const handleDeleteConfirmation =() =>{
       <DialogTitle id="simple-dialog-title">Delete Listing?</DialogTitle>
       <DialogContent>
           <Grid container>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
         <DialogContentText>Reason:</DialogContentText></Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} sm={9}>
         <Select value={reason} onChange={e => setReason(e.target.value)} fullWidth>
           <MenuItem value="">
             <em>None</em>
@@ -64,6 +64,7 @@ const handleDeleteConfirmation =() =>{
         id="reason"
         label="Other"
         type="text"
+        multiline
         fullWidth
       />
     :null}
@@ -73,10 +74,11 @@ const handleDeleteConfirmation =() =>{
           onChange={e => setConfirmSecret(e.target.value)}
           margin="dense"
           id="confirm secret"
-          label="Confirm favorite post-run food to delete!"
+          label="food"
+          helperText="Confirm favorite post-run food to delete!"
           type="text"
           fullWidth
-          variant='outlined'
+          variant="filled"
         />
       </DialogContent>
       <DialogActions>
