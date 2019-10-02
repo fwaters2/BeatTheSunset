@@ -9,33 +9,33 @@ import DeleteDialog from "./DeleteDialog";
 
 const racers = [
   {
-    name: "Trish",
+    name: "Example 1: Trish",
     description:
       "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
     isSingle: true,
-    phone: "217-645-3479",
+    phone: "217-233-1233",
     facebook: "Trisha McPhallen",
     line: "trish1234",
     email: "trish@gmail.com",
     other: "find me at Revolver bar on Thursdays"
   },
   {
-    name: "Mark and Alice",
+    name: "Example 2: Mark and Alice",
     description: "Beer-drinking couple looking for 2 more for a Superteam",
     isSingle: false,
     facebook: null,
     line: "mark67",
-    email: null,
+    email: "1nW0nderland@hotmail.com",
     other: null
   },
   {
-    name: "Trish",
+    name: "Example 3: Barry Allen",
     description:
-      "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
+      "Looking to find a group trying to make it to the top of the podium!",
     isSingle: true,
-    facebook: null,
-    line: "mark67",
-    email: null,
+    facebook: "facebook.com/barryAllIn",
+    line: null,
+    email: "Allen3117@aol.com",
     other: null
   }
 ];
@@ -55,7 +55,7 @@ export default function Listings() {
   React.useEffect(() => {
     const unsubscribe = Firebase.firestore()
       .collection("teamfinderlisting")
-      .orderBy("timestamp")
+      .orderBy("timestamp", "desc")
       .onSnapshot(snapshot => {
         const runner = snapshot.docs.map(doc => ({
           id: doc.id,
@@ -90,21 +90,12 @@ export default function Listings() {
       </Typography>
       <div
         style={{
-          maxHeight: "70vh",
+          maxHeight: "60vh",
           overflow: "auto"
         }}
       >
         <Grid container>
-        <Grid item xs={12} md={6} xl={4}>
-            <Button
-              onClick={handleClickOpen}
-              fullWidth
-              style={{ color: "orange", height: "150px" }}
-            >
-              <Add fontSize="large" />
-              Create Listing
-            </Button>
-          </Grid>
+        
         {data.filter(racer=>!racer.isDeleted).map(racer => (
           <React.Fragment>
             <Racer
@@ -134,6 +125,17 @@ export default function Listings() {
               other={racer.other}
             />
           ))}
+          <Grid item xs={12} md={6} xl={4}>
+            <Button
+              onClick={handleClickOpen}
+              fullWidth
+              style={{ color: "orange", height: "150px" }}
+            >
+              <Add fontSize="large" />
+              Create Listing
+            </Button>
+          </Grid>
+          
         </Grid>
         <ListingDialog
           //selectedValue={selectedValue}
@@ -142,6 +144,13 @@ export default function Listings() {
         />
         
       </div>
+      <Grid item xs={12}>
+            <Button onClick={handleClickOpen}
+              fullWidth
+              variant='contained'
+              color='primary'
+              >Create Listing</Button>
+          </Grid>
     </Paper>
   );
 }

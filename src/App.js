@@ -4,7 +4,7 @@ import "./App.css";
 import bkgdImage from "./bkgdRoad.jpg";
 import Listings from "./Listings";
 import { ThemeProvider } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme, Link, Grid } from "@material-ui/core";
 import { orange } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
@@ -32,6 +32,14 @@ function App() {
         <ThemeProvider theme = {theme} >
         <Listings />
         </ThemeProvider>
+        <Grid container>
+        <Grid item xs= {6}>
+            <Link style={{color:'white'}} href="https://www.jotform.com/beatthesunset/register">Race Website</Link>
+          </Grid>
+          <Grid item xs= {6}>
+            <Link style={{color:'white'}} href="https://www.jotform.com/beatthesunset/register">Register!</Link>
+          </Grid>
+        </Grid>
       </header>
     </div>
   );

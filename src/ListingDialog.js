@@ -190,7 +190,7 @@ export default function ListingDialog(props) {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleSubmit} color="primary" disabled={!name||!email}>
+        <Button onClick={handleSubmit} color="primary" disabled={!name||!email||!secret}>
           Create Listing
         </Button>
       </DialogActions>
