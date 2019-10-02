@@ -1,12 +1,40 @@
 import React from "react";
-import { Person, Group } from "@material-ui/icons";
-import { Grid, ListItem, Box, Typography, Button, ListItemIcon } from "@material-ui/core";
+import { Person, Group, Email, Phone, Info, Delete } from "@material-ui/icons";
+import {
+  Grid,
+  ListItem,
+  Box,
+  Typography,
+  Button,
+  ListItemIcon
+} from "@material-ui/core";
+import LineIcon from "./lineIcon.png";
+import FacebookIcon from "./facebook.png"
+import DeleteDialog from "./DeleteDialog";
 
 export default function Racer(props) {
-  const { handleClickOpenEmail, name, description, isSingle } = props;
+  const [openDelete, setOpenDelete] = React.useState(false);
+  const {
+    handleClickOpenEmail,
+    name,
+    description,
+    isSingle,
+    phone,
+    facebook,
+    line,
+    email,
+    other,
+    id
+  } = props;
+  const handleClickOpenDelete = () => {
+    setOpenDelete(true);
+  };
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-      <ListItem button onClick={handleClickOpenEmail}>
+    <Grid item xs={12} md={6} xl={4} style={{border:'1px solid orange'}}>
+      <ListItem button onClick={handleClickOpenEmail} divider >
         <ListItemIcon>
           {isSingle ? (
             <Person style={{ color: "orange" }} />
@@ -19,11 +47,18 @@ export default function Racer(props) {
             {name}
           </Typography>
           <Typography variant="body1">{description}</Typography>
-          <Button fullWidth color="primary">
-            Contact
-          </Button>
         </Box>
+        {id?
+        <Delete style={{position:"absolute",right:0, top:"2px"}} onClick={handleClickOpenDelete}/>:null}
       </ListItem>
+      <Grid container>
+            {line ? <Grid item xs={12} sm={6} lg={3}><ListItem><ListItemIcon><img src={LineIcon} alt="line" height="30px" /></ListItemIcon><Typography>{line}</Typography></ListItem></Grid> : null}
+            {phone ? <Grid item xs={12} sm={6} lg={3}><ListItem><ListItemIcon><Phone style={{color:"orange"}} /></ListItemIcon><Typography>{phone}</Typography></ListItem></Grid> : null}
+            {facebook ? <Grid item xs={12} sm={7} lg={3}><ListItem><ListItemIcon><img src={FacebookIcon} alt="line" height="25px" /></ListItemIcon><Typography>{facebook}</Typography></ListItem></Grid> : null}
+            {email ? <Grid item xs={12} lg={6}><ListItem><ListItemIcon><Email style={{color:"orange"}} /></ListItemIcon><Typography>{email}</Typography></ListItem></Grid> : null}
+            {other ? <Grid item xs={12}><ListItem><ListItemIcon><Info style={{color:"orange"}}/></ListItemIcon><Typography>{other}</Typography></ListItem></Grid> : null}
+            </Grid>
+            <DeleteDialog openDelete={openDelete} handleCloseDelete={handleCloseDelete} email={email} id={id}/>
     </Grid>
   );
 }

@@ -1,111 +1,166 @@
 import React from "react";
-import {
-  Paper,
-  Typography,
-  Button,
-  Grid
-} from "@material-ui/core";
-import {Add } from "@material-ui/icons";
+import { Paper, Typography, Button, Grid } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import ListingDialog from "./ListingDialog";
 import EmailDialog from "./EmailDialog";
 import Racer from "./Racer";
+import Firebase from './Firebase'
+import DeleteDialog from "./DeleteDialog";
 
 const racers = [
   {
     name: "Trish",
     description:
       "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true
+    isSingle: true,
+    phone: "217-645-3479",
+    facebook: "Trisha McPhallen",
+    line: "trish1234",
+    email: "trish@gmail.com",
+    other: "find me at Revolver bar on Thursdays"
   },
   {
-      name: "Mark and Alice",
-      description:
-      "Beer-drinking couple looking for 2 more for a Superteam",
-      isSingle: false
+    name: "Mark and Alice",
+    description: "Beer-drinking couple looking for 2 more for a Superteam",
+    isSingle: false,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
   },
   {
     name: "Trish",
     description:
       "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true
+    isSingle: true,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
   },
   {
     name: "Bob",
     description:
       "My first race and not the most in shape, but would love to meet new people!",
-    isSingle: true
+    isSingle: true,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
   },
   {
-      name: "Mark and Alice",
-      description:
-      "Beer-drinking couple looking for 2 more for a Superteam",
-      isSingle: false
-  },
-  {
-    name: "Trish",
-    description:
-      "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true
-  },
-  {
-      name: "Mark and Alice",
-      description:
-      "Beer-drinking couple looking for 2 more for a Superteam",
-      isSingle: false
+    name: "Mark and Alice",
+    description: "Beer-drinking couple looking for 2 more for a Superteam",
+    isSingle: false,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
   },
   {
     name: "Trish",
     description:
       "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true
+    isSingle: true,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
   },
   {
-      name: "Mark and Alice",
-      description:
-      "Beer-drinking couple looking for 2 more for a Superteam",
-      isSingle: false
-  },
-  {
-    name: "Trish",
-    description:
-      "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true
-  },
-  {
-      name: "Mark and Alice",
-      description:
-      "Beer-drinking couple looking for 2 more for a Superteam",
-      isSingle: false
+    name: "Mark and Alice",
+    description: "Beer-drinking couple looking for 2 more for a Superteam",
+    isSingle: false,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
   },
   {
     name: "Trish",
     description:
       "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
-    isSingle: true
+    isSingle: true,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
   },
   {
-      name: "Mark and Alice",
-      description:
-      "Beer-drinking couple looking for 2 more for a Superteam",
-      isSingle: false
+    name: "Mark and Alice",
+    description: "Beer-drinking couple looking for 2 more for a Superteam",
+    isSingle: false,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
+  },
+  {
+    name: "Trish",
+    description:
+      "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
+    isSingle: true,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
+  },
+  {
+    name: "Mark and Alice",
+    description: "Beer-drinking couple looking for 2 more for a Superteam",
+    isSingle: false,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
+  },
+  {
+    name: "Trish",
+    description:
+      "New in town and run about a 7 minute mile. Willing to team up with another or a group!",
+    isSingle: true,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
+  },
+  {
+    name: "Mark and Alice",
+    description: "Beer-drinking couple looking for 2 more for a Superteam",
+    isSingle: false,
+    facebook: null,
+    line: "mark67",
+    email: null,
+    other: null
   }
 ];
 
 export default function Listings() {
   const [open, setOpen] = React.useState(false);
-  const [openEmail, setOpenEmail] = React.useState(false);
+
+  const [data, setFBData] = React.useState([]);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-  const handleClickOpenEmail = () => {
-    setOpenEmail(true);
-  };
-  const handleCloseEmail = () => {
-    setOpenEmail(false);
-  };
+
+
+  React.useEffect(() => {
+    const unsubscribe = Firebase.firestore()
+      .collection("teamfinderlisting")
+      .orderBy("timestamp")
+      .onSnapshot(snapshot => {
+        const runner = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setFBData(runner);
+      });
+
+    return () => unsubscribe;
+  }, []);
 
   return (
     <Paper
@@ -126,9 +181,8 @@ export default function Listings() {
           backgroundColor: "rgba(0, 0, 0, .7)"
         }}
       >
-        TEAM FINDER
+        Looking for teammates
       </Typography>
-
       <div
         style={{
           maxHeight: "70vh",
@@ -136,14 +190,35 @@ export default function Listings() {
         }}
       >
         <Grid container>
-            {racers.map(racer=>(
-                <Racer handleClickOpenEmail={handleClickOpenEmail}
-                name={racer.name}
-                description={racer.description}
-                isSingle={racer.isSingle}
-                />
-            ))}
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+        {data.filter(racer=>!racer.isDeleted).map(racer => (
+          <React.Fragment>
+            <Racer
+              name={racer.name}
+              description={racer.description}
+              isSingle={racer.isSingle}
+              phone={racer.phone}
+              facebook={racer.facebook}
+              line={racer.line}
+              email={racer.email}
+              other={racer.other}
+              id={racer.id}
+            />
+            
+            </React.Fragment>
+          ))}
+          {racers.map(racer => (
+            <Racer
+              name={racer.name}
+              description={racer.description}
+              isSingle={racer.isSingle}
+              phone={racer.phone}
+              facebook={racer.facebook}
+              line={racer.line}
+              email={racer.email}
+              other={racer.other}
+            />
+          ))}
+          <Grid item xs={12} md={6} xl={4}>
             <Button
               onClick={handleClickOpen}
               fullWidth
@@ -154,17 +229,12 @@ export default function Listings() {
             </Button>
           </Grid>
         </Grid>
-
         <ListingDialog
           //selectedValue={selectedValue}
           open={open}
           handleClose={handleClose}
         />
-        <EmailDialog
-          //selectedValue={selectedValue}
-          openEmail={openEmail}
-          handleCloseEmail={handleCloseEmail}
-        />
+        
       </div>
     </Paper>
   );
